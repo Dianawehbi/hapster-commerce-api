@@ -45,20 +45,3 @@ Run queue worker:
 docker-compose exec app php artisan queue:work
 
 docker-compose exec app php artisan serve --host=0.0.0.0 --port=8000
-
-# ####
-5. Docker Setup (Required)
-● Make the whole project run inside Docker.
-● Use docker-compose with at least:
-○ PHP + Laravel container
-○ Database container (MySQL/PostgreSQL/SQLite in container)
-○ Redis container (for queues & cache)
-
-● Provide commands in README to:
-docker-compose up -d
-docker-compose exec app php artisan migrate --seed
-docker-compose exec app php artisan queue:work
-
-Make sure the project can be run with: php artisan migrate --seed
-php artisan serve
-php artisan queue:work
