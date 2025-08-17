@@ -18,7 +18,6 @@ class OrderFactory extends Factory
     {
         return [
             'status' => 'pending',
-            'total_price' => 0,
         ];
     }
 }
