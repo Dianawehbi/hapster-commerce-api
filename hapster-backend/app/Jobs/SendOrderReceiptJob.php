@@ -3,13 +3,16 @@
 namespace App\Jobs;
 
 use App\Models\Order;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
 class SendOrderReceiptJob implements ShouldQueue
 {
-    use Queueable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $tries = 3;
     public $backoff = 5;
@@ -23,15 +26,6 @@ class SendOrderReceiptJob implements ShouldQueue
 
     public function handle()
     {
-        // Idempotency check
-        if ($this->order->receipt_sent) {
-            return;
-        }
-
-        // Simulate sending receipt (e.g., log message)
-        Log::info("Receipt sent for Order #{$this->order->id}");
-
-        $this->order->receipt_sent = true;
-        $this->order->save();
+        Log::info("Receipt sent for Order ID: {$this->order->id}, Total: {$this->order->total_price}");
     }
 }
